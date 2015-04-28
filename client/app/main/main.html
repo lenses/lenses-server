@@ -1,28 +1,125 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
-  </div>
-</header>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}</a></li>
+<div class="container box-shadow">
+    <!--
+    <div class="header">
+      <ul class="nav nav-pills pull-right">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
+      <h3 class="text-muted">homepage</h3>
+    </div>
+  -->
+
+
+    <div class="header">
+      <a class="logo text-center" href="/">Lenses</a>
+      <h1 class="text-center">Lenses</h1>
+    </div>
+
+  
+    <div class="row info">
+      <div class="col-md-11 ">
+        <div class="row">
+
+          <div class="col-md-12">
+            Lenses is a web toolkit that enables the rapid createn of sophisticated data visualization and interactive graphics.
+            It's unique because it scales with the prson as their knowledge advances.
+            No knowledge of programming is required to get started but the toolkit can be extended and completley cosutomized
+            by developers using HTML and Javascript
+          </div>
+        </div>
+        <div class="row how">
+          <div class="col-md-4 work">
+            How does it work?
+          </div>
+          <div class="col-md-4 build">
+            Why did we build this?
+          </div>
+          <div class="col-md-4 contribute">
+            How can I contribute?
+          </div>
+        </div>
+        <div class="row create">
+          <div class="col-md-6">
+            <h3>Create your own lenses right now!</h3>
+          </div>
+          <div class="col-md-6">
+             <button type="button" class="btn btn-lg btn-block">
+                <span class="glyphicon glyphicon-plus"></span>
+                Create a Lense
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="showcase">
+  <div class="container">
+
+
+    <div class="row ">
+          <div class="col-md-4 col-md-offset-1">
+            <h3>Lenses showcase</h3>
+          </div>
+          <div class="col-md-3">
+            <div class="btn-group btn-block">
+              <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                All data-viz types <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">All data-viz types</a></li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="col-md-3">
+            <div class="btn-group btn-block">
+              <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Most Recent <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Most Recent</a></li>
+              </ul>
+            </div>
+          </div>
+    </div>      
+    <div class="row showcase-items">
+      <div class="col-md-10 col-md-offset-1 item">
+        <h4>Title<h4>
+        <h5 class="author">Author</h5>
+
+      </div>
+      <div class="col-md-10 col-md-offset-1 item">
+        <h4>Title<h4>
+        <h5 class="author">Author</h5>
+
+      </div>
     </div>
   </div>
 </div>
 
-<footer class="footer">
-  <div class="container">
-      <p>Angular Fullstack v2.0.13 |
-        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+
+
+
+
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+            <a class="logo text-center" href="/">Lenses</a>
+          </div>
+          <div class="col-md-10">
+            <ul class="links">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Help</a></li>
+              <li><a href="#">Terms</a></li>
+              <li><a href="#">Privacy</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+
   </div>
-</footer>
