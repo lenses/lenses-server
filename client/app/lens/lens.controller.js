@@ -7,12 +7,6 @@ angular.module('lensesServerApp')
   	{
 	  	$http.get('api/lenses/'+lensId).success(function(data) {
 	    	$scope.lens = data;
-	    	/*
-			var lens = document.querySelector('#page-lens');
-			var lensStructure = $scope.lens.structure;
-			console.log( lens, lens.scaffoldFromData, lensStructure);
-			lens.scaffoldFromData(lensStructure.elements, lensStructure.connections);
-			*/
 
 	  	});
 	}
@@ -23,18 +17,21 @@ angular.module('lensesServerApp')
 
 	}
 
-	//$scope.initLens = function() {
-		/*
-		setTimeout(function() {
-			console.log('init lens', this);
+	/**
+	 * sets the height of the page when there is lenses freeform in the page.
+	 */
+	$scope.setHeights = function() {
+		var html = document.querySelector('html'),
+			body = document.querySelector('body');
 
-			var lens = document.querySelector('#page-lens');
-			var lensStructure = this.lens.structure;
-			console.log( lens, lensStructure);
-			lens.scaffoldFromData(lensStructure.elements, lensStructure.connections);
-		}.bind(this),2000);
+		html.style.width = '100%';
+		html.style.height = '100%';
 
-		*/
+		body.style.width = '100%';
+		body.style.height = '100%';
+
+	}
+
 	//}
     
   }]);
