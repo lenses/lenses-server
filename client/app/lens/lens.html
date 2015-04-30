@@ -1,6 +1,16 @@
-<div class="col-md-12">
-	<div>
-		{{lens.name}} {{lens.structure}}
-		<lenses-freeform id="page-lens"></lenses-freeform>
-	</div>
-</div>
+<link rel="import" href="../bower_components/lenses-freeform/lenses-freeform.html">
+
+<lenses-freeform id="page-lens" structure="{{lens.structure}}"></lenses-freeform>
+
+
+<script>
+
+
+
+	//document.addEventListener('polymer-ready', function() {
+		// var lens = document.querySelector('#page-lens');
+		// var lensStructure = '{{lens.structure}}';
+		// console.log(lensStructure);
+		// lens.scaffoldFromData(JSON.parse(lensStructure));
+	//});
+</script>
