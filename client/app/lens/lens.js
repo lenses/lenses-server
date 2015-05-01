@@ -4,7 +4,7 @@ angular.module('lensesServerApp')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/lens', {
-        templateUrl: 'app/lens/lenses.html',
+        templateUrl: 'app/lens/lens.html',
         controller: 'LensCtrl'
       })
       .when('/lens/:lensId', {

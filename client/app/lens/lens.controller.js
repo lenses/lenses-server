@@ -10,17 +10,20 @@ angular.module('lensesServerApp')
 
 	  	});
 	}
+	/*
 	else {
 	  	$http.get('api/lenses/').success(function(data) {
 	    	$scope.lenses = data;
 	  	});
 
 	}
+	*/
 
 	/**
 	 * sets the height of the page when there is lenses freeform in the page.
 	 */
 	$scope.setHeights = function() {
+		console.log('setheights');
 		var html = document.querySelector('html'),
 			body = document.querySelector('body');
 
