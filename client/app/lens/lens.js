@@ -5,9 +5,14 @@ angular.module('lensesServerApp')
     $routeProvider
       .when('/lens', {
         templateUrl: 'app/lens/lens.html',
+        reloadOnSearch: false,
         controller: 'LensCtrl'
       })
       .when('/lens/:lensId', {
+        templateUrl: 'app/lens/lens.html',
+        controller: 'LensCtrl'
+      })
+      .when('/lens/:lensId/:revision', {
         templateUrl: 'app/lens/lens.html',
         controller: 'LensCtrl'
       })
