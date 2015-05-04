@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/lensesserver-dev'
+    uri: 'mongodb://0.0.0.0/lensesserver-dev'
   },
 
   seedDB: true
