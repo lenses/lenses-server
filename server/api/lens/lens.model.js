@@ -13,12 +13,16 @@ var InputDataSchema = new Schema({
 module.exports = mongoose.model('InputData', InputDataSchema);
 
 var LensSchema = new Schema({
-  name: String,
+  title: String,
+  author: String,
+  theme: String,
   type: String,
   structure: Schema.Types.Mixed,
   active: Boolean,
   revision: Number,
+  finalResult: Object,
   inputData: {type: Schema.Types.ObjectId, ref: 'InputData'}
+  
 });
 
 module.exports = mongoose.model('Lens', LensSchema);

@@ -16,7 +16,22 @@ angular.module('lensesServerApp')
 
 	  	});
 	}
+ 	else {
+			$http.get('api/lenses/').success(function(data) {
+	    	$scope.lenses = data;
+	  	});
+	}
+
 	console.log('scope.lens', $scope.lens);
+
+	/**
+	 * Removes lens from list and sends a DELETE request to server
+	 */
+	$scope.delete = function (index) {
+       $scope.lenses.splice(index, 1);
+       // TODO: update server also
+    }
+
 
 	/**
 	 * sets the height of the page when there is lenses freeform in the page.
@@ -35,8 +50,11 @@ angular.module('lensesServerApp')
 	},
 
 	$scope.saveLens = function() {
-		var lens = document.querySelector('lenses-freeform');
-		var lensData = lens.dumpStateDataAsString();
+		var lens = document.querySelector('#page-lens');
+		var lensData = lens.dumpData();
+		var title = lens.lensTitle || "";
+		var author = lens.lensAuthor || "";
+
 		console.log('lensData', lensData, this.lens);
 		if(this.lens && this.lens._id) {
 			
@@ -44,6 +62,7 @@ angular.module('lensesServerApp')
 	
 			this.lens.revision = this.lens.revision + 1;
 			this.lens.structure = lensData;
+			console.log('lens state ',this.lens.structure);
 			$http.put('api/lenses/'+this.lens._id, this.lens).success(function(data) {
 				console.log('updated', data);
 				$location.path('/lens/'+ data._id + '/' + data.revision, false);
@@ -69,6 +88,5 @@ angular.module('lensesServerApp')
 
 
 
-	//}
     
   }]);

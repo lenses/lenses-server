@@ -1,8 +1,16 @@
-<div class="col-md-12">
-	available lenses:
-	<ul>
-		<li ng-repeat="lens in lenses">
-			{{lens.name}}
-		</li>
-	</ul>
-</div>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Author</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr ng-repeat="lens in lenses">
+    <td>{{lens.title}}</td>  
+    <td>{{lens.author}}</td>  
+    <td><a ng-href="/lens/{{lens._id}}">Edit</a></td>  
+    <td><a ng-href="/lens/{{lens._id}}/view">View</a></td>  
+    <td><a ng-click="delete($index)">Delete</a></td>
+  </tr>
+</table>
