@@ -42,7 +42,7 @@ angular.module('lensesServerApp', [
     };
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($route, $rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
@@ -51,4 +51,16 @@ angular.module('lensesServerApp', [
         }
       });
     });
+    //to add location path with boolean:reloadOnChange
+    var original = $location.path;
+    $location.path = function (path, reload) {
+        if (reload === false) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+        }
+        return original.apply($location, [path]);
+    };    
   });

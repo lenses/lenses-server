@@ -5,6 +5,7 @@ angular.module('lensesServerApp')
     $routeProvider
       .when('/lens', {
         templateUrl: 'app/lens/lens.html',
+        reloadOnSearch: false,
         controller: 'LensCtrl'
       })
       .when('/lens/:lensId', {
@@ -17,6 +18,10 @@ angular.module('lensesServerApp')
       })
       .when('/lenses', {
         templateUrl: 'app/lens/lenses.html',
+        controller: 'LensCtrl'
+      })
+      .when('/lens/:lensId/:revision', {
+        templateUrl: 'app/lens/lens.html',
         controller: 'LensCtrl'
       })
       .otherwise({

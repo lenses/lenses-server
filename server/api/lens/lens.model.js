@@ -16,8 +16,10 @@ var LensSchema = new Schema({
   title: String,
   author: String,
   theme: String,
-  nodes: Array,
-  finalResult: Object
+  structure: Schema.Types.Mixed,
+  revision: Number,
+  finalResult: Object,
+  inputData: {type: Schema.Types.ObjectId, ref: 'InputData'}
   
 });
 
