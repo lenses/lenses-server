@@ -2,12 +2,22 @@
 
 angular.module('lensesServerApp')
   .controller('LensCtrl', ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
+  	
   	var lensId = $routeParams.lensId;
+
+  	
   	if(lensId) {
 	  	$http.get('api/lenses/'+lensId).success(function(data) {
 	    	$scope.lens = data;
+	    	console.log(data);
 	  	});
+
 		}
+
+		$http.get('api/lenses/').success(function(data) {
+	    	$scope.lenses = data;
+	    	console.log(data);
+	  	});
 		/*
 		else {
 		  	$http.get('api/lenses/').success(function(data) {
@@ -16,12 +26,20 @@ angular.module('lensesServerApp')
 
 		}
 		*/
+	
+		/**
+		 * Removes lens from list and sends a DELETE request to server
+		 */
+		$scope.delete = function (index) {
+       $scope.lenses.splice(index, 1);
+       // TODO: update server also
+    }
 
 
 		/**
 		 * Sends a POST request to create a new lens given the data from lens-composer
 		 */
-		$scope.createLens = function() {
+		$scope.create = function() {
 			var lensComposer = document.querySelector('lens-composer'),
 					lensData = lensComposer.saveLens();
 					// lensData.finalResult = lensComposer.getFinalResult();
@@ -34,13 +52,13 @@ angular.module('lensesServerApp')
 			    	$scope.lens = data;
 			  	});
 				})
-			}
+			}	
 		}
 
 		/**
 		 * Sends a PUT request to update the lens given the data from lens-composer
 		 */
-		$scope.updateLens = function() {
+		$scope.update = function() {
 			var lensComposer = document.querySelector('lens-composer'),
 					lensData = lensComposer.saveLens();
 					lensData.finalResult = lensComposer.getFinalResult(),

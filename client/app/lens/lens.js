@@ -11,6 +11,14 @@ angular.module('lensesServerApp')
         templateUrl: 'app/lens/lens.html',
         controller: 'LensCtrl'
       })
+      .when('/lens/:lensId/view', {
+        templateUrl: 'app/lens/lens-view.html',
+        controller: 'LensCtrl'
+      })
+      .when('/lenses', {
+        templateUrl: 'app/lens/lenses.html',
+        controller: 'LensCtrl'
+      })
       .otherwise({
       	redirectTo: '/lens'
       })

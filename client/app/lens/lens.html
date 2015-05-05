@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/lens-composer/lens-composer.html">
 
-<button ng-if="!lens._id" ng-click="createLens()">Create Lens</button>
-<button ng-if="lens._id" ng-click="updateLens()">Save</button>
+<button ng-if="!lens._id" ng-click="create()">Create Lens</button>
+<button ng-if="lens._id" ng-click="update()">Save</button>
 
 
 <lens-composer nodes="{{lens.nodes || []}}" lensTitle="{{lens.title}}" lensAuthor="{{lens.author}}"></lens-composer>
