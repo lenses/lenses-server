@@ -3,8 +3,8 @@
 angular.module('lensesServerApp')
   .controller('LensCtrl', ['$scope', '$routeParams', '$http', '$location', function ($scope, $routeParams, $http, $location) {
   	var lensId = $routeParams.lensId;
-  	var lensType = $routeParams.type
-  	lensType = lensType ? lensType.substring(1, lensType.length) : 'linear';
+  	var lensType = $routeParams.type || 'linear';
+  	//lensType = lensType ? lensType.substring(1, lensType.length) : 'linear';
   	$scope.lens = {type: lensType};
   	if(lensId) 
   	{
@@ -16,14 +16,7 @@ angular.module('lensesServerApp')
 
 	  	});
 	}
-	/*
-	else {
-	  	$http.get('api/lenses/').success(function(data) {
-	    	$scope.lenses = data;
-	  	});
-
-	}
-	*/
+	console.log('scope.lens', $scope.lens);
 
 	/**
 	 * sets the height of the page when there is lenses freeform in the page.
@@ -46,7 +39,8 @@ angular.module('lensesServerApp')
 		var lensData = lens.dumpStateDataAsString();
 		console.log('lensData', lensData, this.lens);
 		if(this.lens && this.lens._id) {
-			// update lens when id already exist
+			
+			// UPDATE lens when id already exist
 	
 			this.lens.revision = this.lens.revision + 1;
 			this.lens.structure = lensData;
@@ -56,14 +50,16 @@ angular.module('lensesServerApp')
 			});
 		}
 		else {
-			// save new lens
-			var lens = {name: 'new lens', active: true, structure: lensData, revision: 0};
+			
+			// SAVE new lens
+			
+			var lens = {name: 'new lens', type: this.lens.type, active: true, structure: lensData, revision: 0};
 			var scope = this;
 		
 			$http.post('api/lenses/', lens).success(function(data) {
 				console.log('saved', data);
 				scope.lens = data;
-				$location.path('/lens/'+ data._id, false);
+				$location.path('/lens/'+ data._id, false).search({});
 			});
 
 		}
