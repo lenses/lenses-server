@@ -16,7 +16,7 @@
     "lodash": "~2.4.1",
     "lenses-freeform": "lenses/lenses-freeform",
     "angular-bootstrap": "~0.13.0",
-    "lens-composer": "Lenses/lens-composer"
+    "lens-composer": "Lenses/lens-composer#feature/multi-track"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
