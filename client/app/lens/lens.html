@@ -1,5 +1,10 @@
-<link rel="import" href="../bower_components/lenses-freeform/lenses-freeform.html">
+
+
 
 <button class="save" ng-click="saveLens()">Save</button>
 
-<lenses-freeform id="page-lens" structure="{{lens_structure}}" ng-init="setHeights()"></lenses-freeform>
+<link ng-if="lens.type==='freeform'" rel="import" href="../bower_components/lenses-freeform/lenses-freeform.html" >
+<lenses-freeform ng-if="lens.type==='freeform'" id="page-lens" structure="{{lens_structure}}" ng-init="setHeights()"></lenses-freeform>
+
+<link ng-if="lens.type==='linear'" rel="import" href="../bower_components/lens-composer/lens-composer.html" >
+<lens-composer ng-if="lens.type==='linear'" id="page-lens" structure="{{lens_structure}}"  ng-init="setHeights()"></lens-composer>

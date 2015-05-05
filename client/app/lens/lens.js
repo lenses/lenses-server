@@ -3,7 +3,7 @@
 angular.module('lensesServerApp')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/lens', {
+      .when('/lens?:type?', {
         templateUrl: 'app/lens/lens.html',
         reloadOnSearch: false,
         controller: 'LensCtrl'

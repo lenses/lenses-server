@@ -22,7 +22,8 @@ angular.module('lensesServerApp')
     };
     */
    
-    $scope.openNewLens = function() {
-       $location.path('/lens');
+    $scope.openNewLens = function(type) {
+
+       $location.path('/lens?'+ type );
     }
   });

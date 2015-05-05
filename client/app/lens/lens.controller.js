@@ -3,6 +3,9 @@
 angular.module('lensesServerApp')
   .controller('LensCtrl', ['$scope', '$routeParams', '$http', '$location', function ($scope, $routeParams, $http, $location) {
   	var lensId = $routeParams.lensId;
+  	var lensType = $routeParams.type
+  	lensType = lensType ? lensType.substring(1, lensType.length) : 'linear';
+  	$scope.lens = {type: lensType};
   	if(lensId) 
   	{
 	  	console.log('getting lens');

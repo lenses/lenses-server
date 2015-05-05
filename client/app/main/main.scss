@@ -37,6 +37,16 @@ body {
   }
 }
 
+/* to make the width of button and dropdown equal */
+.dropdown-menu {
+  width: 90%;
+  margin: 0px 5%;
+  border-radius: 0;
+}
+.btn{
+  width: 100%;
+}
+
 .how {
   color: #0077ff;
   font-size: 1.3em;
