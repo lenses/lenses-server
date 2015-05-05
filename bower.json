@@ -14,7 +14,8 @@
     "angular-route": ">=1.2.*",
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
-    "lenses-freeform": "lenses/lenses-freeform"
+    "lenses-freeform": "lenses/lenses-freeform",
+    "angular-bootstrap": "~0.13.0"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

@@ -33,10 +33,17 @@
             <h3>Create your own lenses right now!</h3>
           </div>
           <div class="col-md-6">
-             <button type="button" class="btn btn-lg btn-block" ng-click="openNewLens()">
+            <div class="btn-group btn-block">
+             <button type="button" class="btn btn-lg btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <span class="glyphicon glyphicon-plus"></span>
                 Create a Lense
               </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" ng-click="openNewLens('linear')">Linear (follow a linear path to transform data)</a></li>
+                <li><a href="#" ng-click="openNewLens('freeform')">Freeform (connect components with any order)</a></li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
