@@ -16,6 +16,7 @@ var LensSchema = new Schema({
   title: String,
   author: String,
   theme: String,
+  type: String,
   structure: Schema.Types.Mixed,
   revision: Number,
   finalResult: Object,

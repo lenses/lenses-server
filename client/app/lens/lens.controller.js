@@ -1,31 +1,23 @@
 'use strict';
 
 angular.module('lensesServerApp')
-  .controller('LensCtrl', ['$scope', '$routeParams', '$http', '$location', function ($scope, $routeParams, $http, $location) 
+  .controller('LensCtrl', ['$scope', '$routeParams', '$http', '$location', function ($scope, $routeParams, $http, $location) {
   	
-  	var lensId = $routeParams.lensId
-
+  	var lensId = $routeParams.lensId;
+		$scope.type = 'linear';
 
   	if(lensId) {
 	  	$http.get('api/lenses/'+lensId).success(function(data) {
 	    	$scope.lens = data;
 	    	$scope.lens_structure = data.structure;
+	    	$scope.type = data.type;
 	  	});
-
-		} 
-
-		$http.get('api/lenses/').success(function(data) {
+		} else {
+			$http.get('api/lenses/').success(function(data) {
 	    	$scope.lenses = data;
-	    	console.log(data);
 	  	});
-		/*
-		else {
-		  	$http.get('api/lenses/').success(function(data) {
-		    	$scope.lenses = data;
-		  	});
-
 		}
-		*/
+		
 	
 		/**
 		 * Removes lens from list and sends a DELETE request to server
@@ -37,65 +29,36 @@ angular.module('lensesServerApp')
 
 
 		/**
-		 * Sends a POST request to create a new lens given the data from lens-composer
+		 * Sends a POST/PUT request to create/update a lens given the data from lens-composer or lenses-freeform
 		 */
-		$scope.create = function() {
-			var lensComposer = document.querySelector('lens-composer'),
-					lensData = lensComposer.saveLens();
-					// lensData.finalResult = lensComposer.getFinalResult();
-
-			if (lensData){
-				$http.post('api/lenses/', lensData).success(function(data) {
-		    	$scope.lens = data;
-		    	console.log(data);
-		    	$http.get('api/lenses/'+data._id).success(function(data) {
-			    	$scope.lens = data;
-			  	});
-				})
-			}	
-		}
-
-		/**
-		 * Sends a PUT request to update the lens given the data from lens-composer
-		 */
-		$scope.update = function() {
-			var lensComposer = document.querySelector('lens-composer'),
-					lensData = lensComposer.saveLens();
-					lensData.finalResult = lensComposer.getFinalResult(),
-					lensId = $routeParams.lensId;
-
-			if (lensData){
-				$http.put('api/lenses/'+lensId, lensData).success(function(data) {
-		    	$scope.lens = data;
-		    	console.log(data);
-				})
-			}
-		}
-
 		$scope.save = function() {
 			
 			if (this.type === 'linear'){
-				var lens = document.querySelector('lens-composer');
-				var lensData = lens.saveLens();
-				
-			} else {
-				var lens = document.querySelector('lenses-freeform');
-				var lensData = lens.dumpStateDataAsString();
+				var lens = document.querySelector('lens-composer'),
+						structure = lens.saveLens(),
+						title = lens.lensTitle,
+						author = lens.lensAuthor;
 
+			} else {
+				var lens = document.querySelector('lenses-freeform'),
+						structure = lens.dumpStateDataAsString(),
+						title = lens.lensTitle || "",
+						author = lens.lensAuthor || "";
 			}
 			
 			if(this.lens && this.lens._id) {
-				// update lens when id already exist
+				// Update lens when it already exists
 				this.lens.revision = this.lens.revision + 1;
-				this.lens.structure = lensData;
+				this.lens.structure = structure;
 				$http.put('api/lenses/'+this.lens._id, this.lens).success(function(data) {
 					console.log('updated', data);
 					$location.path('/lens/'+ data._id + '/' + data.revision, false);
 				});
 			}
 			else {
-				// save new lens
-				var lens = {name: 'new lens', active: true, structure: lensData, revision: 0};
+				// Save a new lens 
+				console.log(this.type)
+				var lens = {title: title, author: author, active: true, type: this.type, structure: structure, revision: 0};
 				var scope = this;
 			
 				$http.post('api/lenses/', lens).success(function(data) {
@@ -103,10 +66,7 @@ angular.module('lensesServerApp')
 					scope.lens = data;
 					$location.path('/lens/'+ data._id, false);
 				});
-
 			}
-			
-			
 		}
 
 

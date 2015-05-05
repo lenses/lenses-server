@@ -3,7 +3,6 @@
 
 <button class="save" ng-click="save()">Save</button>
 
-<lens-composer ng-if="lens.type == 'linear'" nodes="{{lens.nodes || []}}" lensTitle="{{lens.title}}" lensAuthor="{{lens.author}}"></lens-composer>
+<lens-composer ng-if="type == 'linear'" nodes="{{lens.nodes || []}}" lensTitle="{{lens.title}}" lensAuthor="{{lens.author}}"></lens-composer>
 
-
-<lenses-freeform ng-if="lens.type == 'freeform'" id="page-lens" structure="{{lens_structure}}" ng-init="setHeights()"></lenses-freeform>
+<lenses-freeform ng-if="type == 'freeform'" id="page-lens" structure="{{lens_structure}}" ng-init="setHeights()"></lenses-freeform>
