@@ -22,8 +22,7 @@ var mongoose = require('mongoose');
 module.exports = function(app) {
   var env = app.get('env');
 
-  //app.set('views', config.root + '/server/views');
-  app.set('views', config.root + '/client/viewer');
+  app.set('views', config.root + '/client/viewer'); //just to make sure it works in envs other than dev. & prod.
 
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
@@ -44,6 +43,7 @@ module.exports = function(app) {
   }));
   
   if ('production' === env) {
+    app.set('views', config.root + '/public/views');
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
     app.set('appPath', config.root + '/public');
@@ -51,6 +51,7 @@ module.exports = function(app) {
   }
 
   if ('development' === env || 'test' === env) {
+    app.set('views', config.root + '/client/views');
     app.use(require('connect-livereload')());
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'client')));
