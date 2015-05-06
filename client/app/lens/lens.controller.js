@@ -9,8 +9,7 @@ angular.module('lensesServerApp')
   	var lensType = $routeParams.type || 'linear';
   	$scope.lens = {type: lensType};
 
-  	if(lensId) 
-  	{
+  	if(lensId) {
 			// Get lens and set scope
 	  	console.log('getting lens ' + lensId + ', revision: ' + revision);
 	  	$http.get('api/lenses/'+lensId+'/'+revision).success(function(data) {
@@ -91,7 +90,6 @@ angular.module('lensesServerApp')
 
 		body.style.width = '100%';
 		body.style.height = '100%';
-
 	};
 
 
