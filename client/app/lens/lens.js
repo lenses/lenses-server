@@ -26,5 +26,5 @@ angular.module('lensesServerApp')
       })
       .otherwise({
       	redirectTo: '/lens'
-      })
+      });
   });

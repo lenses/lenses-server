@@ -7,7 +7,8 @@
 1. Download or clone repo
 2. <code>npm install</code>
 3. <code>bower install</code>
-4. <code>grunt serve</code>
+4. run mongo (<code>mongod</code>)
+5. <code>grunt serve</code>
 
 #### Adding Routes or API endpoints to the app
 
