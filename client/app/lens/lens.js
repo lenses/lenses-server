@@ -25,6 +25,6 @@ angular.module('lensesServerApp')
         controller: 'LensCtrl'
       })
       .otherwise({
-      	redirectTo: '/lens'
+      	redirectTo: '/'
       });
   });
