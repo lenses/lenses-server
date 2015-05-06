@@ -1,4 +1,4 @@
-<button class="save" ng-click="saveLens()">Save</button>
+<button id="saveLensBtn" class="save" ng-click="saveLens()">Save</button>
 
 <link ng-if="lens.type==='freeform'" rel="import" href="../bower_components/lenses-freeform/lenses-freeform.html" >
 <lenses-freeform ng-if="lens.type==='freeform'" id="page-lens" structure="{{lens_structure}}" ng-init="setHeights()"></lenses-freeform>
