@@ -25,5 +25,5 @@ angular.module('lensesServerApp')
     $scope.openNewLens = function(type) {
 
        $location.path('/lens').search({type: type});
-    }
+    };
   });
