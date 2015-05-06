@@ -33,7 +33,13 @@
     <div  class="lens-container">
 
      <h3><%= lens._id %></h3>
-     <h3><%= lens.type %></h3>
+
+      <% if (lens.type==='linear') { %>
+        linear lens
+      <% } else if (lens.type==='freeform') { %>
+        freeform lens
+      <% } %>
+
 
     </div>
 
