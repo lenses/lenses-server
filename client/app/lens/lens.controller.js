@@ -3,13 +3,14 @@
 angular.module('lensesServerApp')
   .controller('LensCtrl', ['$scope', '$routeParams', '$http', '$location', function ($scope, $routeParams, $http, $location) {
   	var lensId = $routeParams.lensId;
+  	var revision = $routeParams.revision;
   	var lensType = $routeParams.type || 'linear';
   	//lensType = lensType ? lensType.substring(1, lensType.length) : 'linear';
   	$scope.lens = {type: lensType};
   	if(lensId) 
   	{
-	  	console.log('getting lens');
-	  	$http.get('api/lenses/'+lensId).success(function(data) {
+	  	console.log('getting lens ' + lensId + ', revision: ' + revision);
+	  	$http.get('api/lenses/'+lensId+'/'+revision).success(function(data) {
 	    	$scope.lens = data;
 	    	//put structure into scope seperately to have more control over when it updates
 	    	$scope.lens_structure = data.structure;
@@ -59,7 +60,6 @@ angular.module('lensesServerApp')
 		if(this.lens && this.lens._id) {
 			
 			// UPDATE lens when id already exist
-	
 			this.lens.revision = this.lens.revision + 1;
 			this.lens.structure = lensData;
 			console.log('lens state ',this.lens.structure);

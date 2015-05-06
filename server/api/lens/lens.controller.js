@@ -13,6 +13,8 @@ exports.index = function(req, res) {
 
 // Get a single lens
 exports.show = function(req, res) {
+  var id = req.params.id;
+  var revision = req.params.revision;
   Lens.findById(req.params.id, function (err, lens) {
     if(err) { return handleError(res, err); }
     if(!lens) { return res.send(404); }
