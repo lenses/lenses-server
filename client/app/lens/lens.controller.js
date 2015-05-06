@@ -5,14 +5,16 @@ angular.module('lensesServerApp')
                 ['$scope', '$routeParams', '$http', '$location', 
                 function ($scope, $routeParams, $http, $location) {
   	var lensId = $routeParams.lensId;
+  	var revision = $routeParams.revision;
   	var lensType = $routeParams.type || 'linear';
   	$scope.lens = {type: lensType};
- 
+
   	if(lensId) {
 			// Get lens and set scope
- 	  	$http.get('api/lenses/'+lensId).success(function(data) {
+	  	console.log('getting lens ' + lensId + ', revision: ' + revision);
+	  	$http.get('api/lenses/'+lensId+'/'+revision).success(function(data) {
 	    	$scope.lens = data;
-	    	
+
 	    	//put structure into scope seperately to have more control over when it updates
 	    	$scope.lensStructure = data.structure;
 		  	});
@@ -31,7 +33,7 @@ angular.module('lensesServerApp')
 	    // TODO: update server also
 	};
 
-  	/**
+	/**
 	 * Gets the state of the lens and calls the appropriate save method
 	 */
 	$scope.save = function() {
