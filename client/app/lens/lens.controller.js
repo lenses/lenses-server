@@ -39,6 +39,8 @@ angular.module('lensesServerApp')
 		this.lens.structure = lens.dumpData();
 		this.lens.title = lens.lensTitle || '';
 		this.lens.author = lens.lensAuthor || '';
+		this.lens.finalResult = lens.getFinalResult() || {};
+		// console.log(this.lens.finalResult);
 
 		if(this.lens && this.lens._id) {
 			this.update();

@@ -8,17 +8,18 @@ exports.index = function(req, res) {
 	  Lens.findById(req.params.id, function (err, lens) {
 	    if(err) { /*return handleError(res, err);*/ console.log(err); }
 	    if(!lens) { return res.send(404); }
-	    pageLens = lens
-	      console.log('appPath', req.app.get('appPath'));
-		
-		 
-		 res.render('viewer.html', {
-		    lens: pageLens
-		  });
 
+      var elementName = lens.finalResult ? lens.finalResult.componentName : "",
+          elementDataObj = lens.finalResult ? lens.finalResult.componentState : {};
+         
+      res.render('viewer.html', {
+        lens: lens,
+        title: lens.title,
+        elementName: elementName,
+        elementData: elementDataObj
+      });
 
 	  });
-
   }
   		
 

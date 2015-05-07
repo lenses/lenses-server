@@ -7,9 +7,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base href="/">
-    <title></title>
+    <title><%= title || 'Lenses' %></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
@@ -24,6 +26,11 @@
     <!-- endbuild -->
 
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    
+    <!-- Import for web component -->
+    <% if (elementName) { %>
+      <link rel="import" href="bower_components/<%=elementName%>/<%=elementName%>.html">
+    <% } %>
 
   </head>
   <body>
@@ -31,19 +38,28 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div  class="lens-container">
 
-     <h3><%= lens._id %></h3>
+    <% if (elementName) { %>
+      <div id="view-button"><a href="../lens/<%= lens._id %>" target="_blank">View Lens</a></div>
+      <<%= elementName %> id="viz"></<%= elementName %>>
+    <% } else { %>
+      <h1> No final result exists for this lens. </h1>
+    <% } %>
 
-      <% if (lens.type==='linear') { %>
-        linear lens
-      <% } else if (lens.type==='freeform') { %>
-        freeform lens
-      <% } %>
+    <script>
+      var element = document.querySelector('#viz');
 
+      if (element){
+        var elementData = <%- JSON.stringify(elementData) %> ;
+        console.log(elementData);
+        for (var attr in elementData){
+          element[attr] = elementData[attr];
+        }
 
-    </div>
+        element.showOptions = false;
+        element.animateOnInit = true;
+      }
+    </script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
