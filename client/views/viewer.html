@@ -15,8 +15,10 @@
       <!-- bower:css -->
       <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css({.tmp,client}) app/app.css -->
-    <link rel="stylesheet" href="assets/viewer.css">
+
+
+    <!-- build:css({.tmp,client}) app/viewer.css -->
+      <link rel="stylesheet" href="assets/viewer.css">
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
@@ -58,18 +60,19 @@
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-    <!-- build:js({client,node_modules}) app/vendor.js -->
+
+    <!-- build:js({client,node_modules}) app/viewer-vendor.js -->
       <!-- bower:js -->
       <script src="bower_components/jquery/dist/jquery.js"></script>
-
       <!-- endbower -->
+    <!-- endbuild -->    
+
+    <!-- build:js({.tmp,client}) app/viewer.js -->
+      <script src="assets/viewer.js"></script>
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,client}) app/app.js -->
-        <script src="assets/viewer.js"></script>
-        <!-- endbuild -->
 
+    <%-  '<script>var lensData = '+JSON.stringify(lens.structure)+';\n printLens(lensData);' + '</script>' %>
 
-        <%-  '<script>var lensData = '+JSON.stringify(lens.structure)+';\n printLens(lensData);' + '</script>' %>
 </body>
 </html>
