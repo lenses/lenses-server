@@ -16,7 +16,7 @@
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
-    <link rel="stylesheet" href="viewer/viewer.css">
+    <link rel="stylesheet" href="assets/viewer.css">
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
@@ -66,7 +66,10 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
-        <script src="viewer/viewer.js"></script>
+        <script src="assets/viewer.js"></script>
         <!-- endbuild -->
+
+
+        <%-  '<script>var lensData = '+JSON.stringify(lens.structure)+';\n printLens(lensData);' + '</script>' %>
 </body>
 </html>

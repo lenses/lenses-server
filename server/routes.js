@@ -15,7 +15,7 @@ module.exports = function(app) {
 
   //route for viewer
   //app.get('/viewer', require('./controllers/viewer.js'));
-  var viewerController = require('./controllers/viewer');
+  var viewerController = require('./controllers/viewerController');
   app.get('/viewer/:id', viewerController.index);
 
 //  app.use('/viewer', require('./controllers/viewer'));
