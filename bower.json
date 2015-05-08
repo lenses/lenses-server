@@ -16,16 +16,13 @@
     "lodash": "~2.4.1",
     "lenses-freeform": "lenses/lenses-freeform",
     "angular-bootstrap": "~0.13.0",
-    "lens-composer": "Lenses/lens-composer#feature/multi-track"
+    "lens-composer": "lenses/lens-composer"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
   },
   "resolutions": {
-    "lodash": "~3.5.0",
-    "polymer": "~0.5.1",
-    "core-component-page": "master",
-    "webcomponentsjs": "^0.5"
+    "lodash": "~3.5.0"
   }
 }
