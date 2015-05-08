@@ -22,6 +22,7 @@
     "jQuery": true,
     "angular": true,
     "console": true,
+    "confirm": true,
     "$": true,
     "_": true,
     "moment": true,

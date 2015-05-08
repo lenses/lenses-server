@@ -29,9 +29,9 @@ angular.module('lensesServerApp')
 	$scope.delete = function (index, lensId) {
 		if(confirm('Are you sure you want to delete this lens?')){
 	    $scope.lenses.splice(index, 1);
-      $http.delete('api/lenses/'+lensId).success(function(data) {
-	    	console.log("deleted lens "+lensId);
-			})
+      $http.delete('api/lenses/'+lensId).success(function() {
+	    	console.log('deleted lens '+lensId);
+			});
     }
 	};
 
