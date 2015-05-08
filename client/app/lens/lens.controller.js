@@ -26,9 +26,13 @@ angular.module('lensesServerApp')
 	/**
 	 * Removes lens from list and sends a DELETE request to server
 	 */
-	$scope.delete = function (index) {
+	$scope.delete = function (index, lensId) {
+		if(confirm('Are you sure you want to delete this lens?')){
 	    $scope.lenses.splice(index, 1);
-	    // TODO: update server also
+      $http.delete('api/lenses/'+lensId).success(function(data) {
+	    	console.log("deleted lens "+lensId);
+			})
+    }
 	};
 
   	/**

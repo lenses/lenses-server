@@ -10,7 +10,7 @@
     <td>{{lens.title}}</td>  
     <td>{{lens.author}}</td>  
     <td><a ng-href="/lens/{{lens._id}}">Edit</a></td>  
-    <td><a ng-href="/lens/{{lens._id}}/view">View</a></td>  
-    <td><a ng-click="delete($index)">Delete</a></td>
+    <td><a ng-href="/viewer/{{lens._id}}">View</a></td>  
+    <td><a ng-click="delete($index, lens._id)" >Delete</a></td>
   </tr>
 </table>

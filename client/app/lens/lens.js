@@ -3,6 +3,10 @@
 angular.module('lensesServerApp')
   .config(function ($routeProvider) {
     $routeProvider
+      .when('/lenses', {
+        templateUrl: 'app/lens/lenses.html',
+        controller: 'LensCtrl'
+      })
       .when('/lens?:type?', {
         templateUrl: 'app/lens/lens.html',
         reloadOnSearch: false,
@@ -16,10 +20,7 @@ angular.module('lensesServerApp')
         templateUrl: 'app/lens/lens-view.html',
         controller: 'LensCtrl'
       })
-      .when('/lenses', {
-        templateUrl: 'app/lens/lenses.html',
-        controller: 'LensCtrl'
-      })
+
       .when('/lens/:lensId/:revision', {
         templateUrl: 'app/lens/lens.html',
         controller: 'LensCtrl'
