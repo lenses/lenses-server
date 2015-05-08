@@ -1,6 +1,6 @@
 <div class="buttons">
 <button class="save" ng-click="save()">Save</button>
-<a ng-if="lens.finalResult" href="/viewer/{{lens._id}}"><button class="view"> View </button></a>
+<a ng-if="lens.finalResult" href="/viewer/{{lens._id}}" target="_blank"><button class="view"> View </button></a>
 </div>
 
 <link ng-if="lens.type==='freeform'" rel="import" href="../bower_components/lenses-freeform/lenses-freeform.html" >
