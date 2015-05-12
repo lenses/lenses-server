@@ -10,7 +10,6 @@ module.exports = function(app) {
 
   // Insert routes below
   app.use('/api/lenses', require('./api/lens'));
-  app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
 
   //route for viewer
