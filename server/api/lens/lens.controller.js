@@ -26,26 +26,49 @@ exports.create = function(req, res) {
   if(req.user) {
     //if user is logged in set user as owner of the lens 
     req.body.user = req.user;
-    Lens.create(req.body, function(err, lens) {
-      if(err) { return handleError(res, err); }
-      return res.json(201, lens);
-    });
+
+    createLens(req.body);
 
   }
   else {
     //make anonymous user the owner
-    console.log('USER ',User);
-    //User.find({}, '-salt -hashedPassword', function (err, users) {
     User.findOne({defaultUser: true}, function(err, user) {
+
         if(err) { return handleError(res, err); }
-        console.log('defualt user is ', user, user._id);
         req.body.user = user;
-        Lens.create(req.body, function(err, lens) {
-          if(err) { return handleError(res, err); }
-          return res.json(201, lens);
-        });
+
+        var lensesCookie = req.cookies.lenses; //TODO signed cookies?
+
+        if(!lensesCookie) {
+
+          var token;
+          require('crypto').randomBytes(16, function(ex, buf) {
+            token = buf.toString('hex');
+            console.log('gen token', token);
+            res.cookie('lenses', token, { expires: new Date(Date.now() + 900000)});
+            req.body.cookieToken = token;
+
+            createLens(req.body);
+
+          });
+        }
+        else {
+          console.log('lensescookie', lensesCookie);
+          req.body.cookieToken = lensesCookie;
+
+          createLens(req.body);
+        }
+
 
     });
+  }
+
+  function createLens(mylens) {
+      Lens.create(req.body, function(err, mylens) {
+        if(err) { return handleError(res, err); }
+        return res.json(201, mylens);
+  });
+
   }
 };
 

@@ -18,6 +18,7 @@ var LensSchema = new Schema({
   title: String,
   author: String,
   user: {type: Schema.Types.ObjectId, ref: 'User'},
+  cookieToken: String, //use to identify not logged in users.
   theme: String,
   type: String,
   structure: Schema.Types.Mixed,
