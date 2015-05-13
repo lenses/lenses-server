@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    User = require('../user/user.model');
+
 
 // schema for input data pasted into lens
 var InputDataSchema = new Schema({
@@ -15,6 +17,7 @@ module.exports = mongoose.model('InputData', InputDataSchema);
 var LensSchema = new Schema({
   title: String,
   author: String,
+  user: {type: Schema.Types.ObjectId, ref: 'User'},
   theme: String,
   type: String,
   structure: Schema.Types.Mixed,

@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Lens = require('./lens.model');
+var User = require('../user/user.model');
 
 // Get list of lenss
 exports.index = function(req, res) {
@@ -22,10 +23,30 @@ exports.show = function(req, res) {
 
 // Creates a new lens in the DB.
 exports.create = function(req, res) {
-  Lens.create(req.body, function(err, lens) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, lens);
-  });
+  if(req.user) {
+    //if user is logged in set user as owner of the lens 
+    req.body.user = req.user;
+    Lens.create(req.body, function(err, lens) {
+      if(err) { return handleError(res, err); }
+      return res.json(201, lens);
+    });
+
+  }
+  else {
+    //make anonymous user the owner
+    console.log('USER ',User);
+    //User.find({}, '-salt -hashedPassword', function (err, users) {
+    User.findOne({defaultUser: true}, function(err, user) {
+        if(err) { return handleError(res, err); }
+        console.log('defualt user is ', user, user._id);
+        req.body.user = user;
+        Lens.create(req.body, function(err, lens) {
+          if(err) { return handleError(res, err); }
+          return res.json(201, lens);
+        });
+
+    });
+  }
 };
 
 // Updates an existing lens in the DB.
