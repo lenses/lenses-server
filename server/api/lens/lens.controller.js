@@ -70,23 +70,17 @@ exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   if(req.body.__v || req.body.__v === 0) { delete req.body.__v; } // Version key should not be hardcoded and is updated interally. MongoDB will not allow it to be set manually, so remove it from data.
 
-  /*
-  // findOneAndUpdate updates non-string attributes properly, whereas findById was not saving those values to the DB.
-  // Mongoose documentation: http://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
-  Lens.findOneAndUpdate({_id: req.params.id}, req.body, {upsert: true}, function(err, lens){
-    if (err) { console.log(err); return handleError(res, err); }
-    return res.json(200, lens);
-  });
-  */
 
     Lens.findById(req.params.id, function (err, lens) {
       if (err) { return handleError(res, err); }
       if(!lens) { return res.send(404); }
       
-      // assuming that all needed data to save a lens is available in request, to fix linear state update problem
-      // 
       var updated = _.merge(lens, req.body);
-      //var updated = req.body;
+
+      // make sure updated has the structure passed by request
+      if(req.body.structure) {
+        updated.structure = req.body.structure;
+      }
 
       //check if user is allowed to update the lens
       if(allowUpdate(req, lens)) {
