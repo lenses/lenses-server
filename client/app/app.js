@@ -5,7 +5,6 @@ angular.module('lensesServerApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  //'ui.router',
   'ui.bootstrap'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {

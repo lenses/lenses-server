@@ -6,7 +6,7 @@ angular.module('lensesServerApp')
                 function ($scope, $routeParams, $http, $location) {
   	var lensId = $routeParams.lensId;
   	var lensType = $routeParams.type || 'linear';
-  	$scope.lens = {type: lensType};
+  	$scope.lens = {type: lensType, editable: true};
  
   	if(lensId) {
 			// Get lens and set scope
@@ -52,6 +52,11 @@ angular.module('lensesServerApp')
 			this.create();				
 		}	
 	};
+
+	$scope.fork = function() {
+		//TODO implementation
+	}
+
 
 	/**
 	 * Sends a PUT request to update the lens
