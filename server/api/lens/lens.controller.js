@@ -18,11 +18,15 @@ exports.show = function(req, res) {
     if(err) { return handleError(res, err); }
     if(!lens) { return res.send(404); }
 
+    // turn mongoose object to plain object so we can set editable property
+    var mylens = lens.toObject();
+
     // make lens savable
-    if(req.cookies.lenses === lens.cookieToken) {
-      lens.editable = true;
+    if(req.cookies.lenses === mylens.cookieToken) {
+      mylens['editable'] = true;
     }
-    return res.json(lens);
+    return res.json(mylens);
+
   });
 };
 
@@ -123,6 +127,7 @@ function handleError(res, err) {
 function createLens(req, res) {
     Lens.create(req.body, function(err, mylens) {
       if(err) { return handleError(res, err); }
+      console.log('id', mylens.id)
       return res.json(201, mylens);
     });
 }

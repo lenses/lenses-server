@@ -15,6 +15,7 @@ angular.module('lensesServerApp')
 	    	
 	    	//put structure into scope seperately to have more control over when it updates
 	    	$scope.lensStructure = data.structure;
+	    	console.log('lens', $scope.lens);
 		  	});
 	} else {
 			// Get lenses list
@@ -47,14 +48,28 @@ angular.module('lensesServerApp')
 		// console.log(this.lens.finalResult);
 
 		if(this.lens && this.lens._id) {
+			console.log('update');
 			this.update();
 		} else {
+			console.log('create');
 			this.create();				
 		}	
 	};
 
 	$scope.fork = function() {
-		//TODO implementation
+		var lens = document.querySelector('#page-lens');
+		this.lens.structure = lens.dumpData();
+		this.lens.title = lens.lensTitle || '';
+		this.lens.author = lens.lensAuthor || '';
+		this.lens.finalResult = lens.getFinalResult() || {};
+
+		this.lens._id = null;
+		this.cookieToken = null;
+
+		console.log('lens to be forked', this.lens);
+
+		this.create();	
+
 	}
 
 
@@ -77,6 +92,7 @@ angular.module('lensesServerApp')
 		var scope = this;
 		this.lens.active = true;
 		this.lens.revisions = 0;
+		console.log('posting ', this.lens)
 		
 		$http.post('api/lenses/', this.lens).success(function(data) {
 			console.log('saved', data);
