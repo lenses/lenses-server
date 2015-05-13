@@ -17,6 +17,11 @@ exports.show = function(req, res) {
   Lens.findById(req.params.id, function (err, lens) {
     if(err) { return handleError(res, err); }
     if(!lens) { return res.send(404); }
+
+    // make lens savable
+    if(req.cookies.lenses === lens.cookieToken) {
+      lens.editable = true;
+    }
     return res.json(lens);
   });
 };
