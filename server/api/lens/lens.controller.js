@@ -125,10 +125,18 @@ function handleError(res, err) {
 }
 
 function createLens(req, res) {
+    //needed for forking? otherwise mongoose rewrites?
+    if(req.body._id) { delete req.body._id; }
+
     Lens.create(req.body, function(err, mylens) {
       if(err) { return handleError(res, err); }
       console.log('id', mylens.id)
-      return res.json(201, mylens);
+
+      // created lens always needs to be editable
+      var mylensClone = mylens.toObject();
+      mylensClone['editable'] = true;
+
+      return res.json(201, mylensClone);
     });
 }
 

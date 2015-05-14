@@ -7,6 +7,7 @@ angular.module('lensesServerApp')
   	var lensId = $routeParams.lensId;
   	var lensType = $routeParams.type || 'linear';
   	$scope.lens = {type: lensType, editable: true};
+
  
   	if(lensId) {
 			// Get lens and set scope
@@ -36,6 +37,8 @@ angular.module('lensesServerApp')
     }
 	};
 
+	console.log('SCOPE ', $scope);
+
   	/**
 	 * Gets the state of the lens and calls the appropriate save method
 	 */
@@ -45,13 +48,12 @@ angular.module('lensesServerApp')
 		this.lens.title = lens.lensTitle || '';
 		this.lens.author = lens.lensAuthor || '';
 		this.lens.finalResult = lens.getFinalResult() || {};
-		// console.log(this.lens.finalResult);
 
 		if(this.lens && this.lens._id) {
 			console.log('update');
 			this.update();
 		} else {
-			console.log('create');
+			console.log('create scope', this );
 			this.create();				
 		}	
 	};
@@ -63,10 +65,11 @@ angular.module('lensesServerApp')
 		this.lens.author = lens.lensAuthor || '';
 		this.lens.finalResult = lens.getFinalResult() || {};
 
-		this.lens._id = null;
+		//this.lens._id = null;
 		this.cookieToken = null;
 
 		console.log('lens to be forked', this.lens);
+
 
 		this.create();	
 
@@ -89,14 +92,15 @@ angular.module('lensesServerApp')
 	 * Sends a POST request to create a new lens
 	 */
 	$scope.create = function(){	
-		var scope = this;
+		//var scope = this;
 		this.lens.active = true;
 		this.lens.revisions = 0;
-		console.log('posting ', this.lens)
+		console.log('posting ', this.lens);
 		
 		$http.post('api/lenses/', this.lens).success(function(data) {
 			console.log('saved', data);
-			scope.lens = data;
+			$scope.lens = data;
+			console.log('scope lens', $scope, $scope.lens);
 			$location.path('/lens/'+ data._id, false).search({});
 		});
 	};
