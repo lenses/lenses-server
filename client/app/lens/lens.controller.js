@@ -90,15 +90,17 @@ angular.module('lensesServerApp')
 	 * sets the height of the page when there is lenses freeform in the page.
 	 */
 	$scope.setHeights = function() {
-		console.log('setheights');
-		var html = document.querySelector('html'),
-			body = document.querySelector('body');
+		if ($scope.lens.type === 'freeform'){
+			console.log('setheights');
+			var html = document.querySelector('html'),
+				body = document.querySelector('body');
 
-		html.style.width = '100%';
-		html.style.height = '100%';
+			html.style.width = '100%';
+			html.style.height = '100%';
 
-		body.style.width = '100%';
-		body.style.height = '100%';
+			body.style.width = '100%';
+			body.style.height = '100%';
+		}
 	};
 
 
