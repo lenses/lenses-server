@@ -29,15 +29,18 @@ angular.module('lensesServerApp')
 	 * Removes lens from list and sends a DELETE request to server
 	 */
 	$scope.delete = function (index, lensId) {
-		if(confirm('Are you sure you want to delete this lens?')){
-	    $scope.lenses.splice(index, 1);
-      $http.delete('api/lenses/'+lensId).success(function() {
-	    	console.log('deleted lens '+lensId);
-			});
-    }
-	};
 
-	console.log('SCOPE ', $scope);
+		//TODO don't delete, mark active:false or deleted:true
+
+		/*
+		if(confirm('Are you sure you want to delete this lens?')){
+		    $scope.lenses.splice(index, 1);
+	      $http.delete('api/lenses/'+lensId).success(function() {
+		    	console.log('deleted lens '+lensId);
+				});
+	    }
+	    */
+	};
 
   	/**
 	 * Gets the state of the lens and calls the appropriate save method
@@ -50,10 +53,8 @@ angular.module('lensesServerApp')
 		this.lens.finalResult = lens.getFinalResult() || {};
 
 		if(this.lens && this.lens._id) {
-			console.log('update');
 			this.update();
 		} else {
-			console.log('create scope', this );
 			this.create();				
 		}	
 	};
@@ -68,12 +69,9 @@ angular.module('lensesServerApp')
 		//this.lens._id = null;
 		this.cookieToken = null;
 
-		console.log('lens to be forked', this.lens);
-
-
 		this.create();	
 
-	}
+	};
 
 
 	/**
@@ -82,8 +80,8 @@ angular.module('lensesServerApp')
 	$scope.update = function(){	
 		this.lens.revision = this.lens.revision + 1;
 
+
 		$http.put('api/lenses/'+this.lens._id, this.lens).success(function(data) {
-			console.log('updated', data);
 			$location.path('/lens/'+ data._id + '/' + data.revision, false);
 		});
 	};
