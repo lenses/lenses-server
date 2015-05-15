@@ -21,28 +21,24 @@ angular.module('lensesServerApp')
 	} else {
 			// Get lenses list
 		$http.get('api/lenses/').success(function(data) {
-	    	$scope.lenses = data;
-	  	});
+    	$scope.lenses = data;
+  	});
 	}
 
 	/**
 	 * Removes lens from list and sends a DELETE request to server
 	 */
 	$scope.delete = function (index, lensId) {
-
 		//TODO don't delete, mark active:false or deleted:true
-
-		/*
 		if(confirm('Are you sure you want to delete this lens?')){
-		    $scope.lenses.splice(index, 1);
-	      $http.delete('api/lenses/'+lensId).success(function() {
-		    	console.log('deleted lens '+lensId);
-				});
-	    }
-	    */
+	    $scope.lenses.splice(index, 1);
+      $http.delete('api/lenses/'+lensId).success(function() {
+	    	console.log('deleted lens '+lensId);
+			});
+    }
 	};
 
-  	/**
+  /**
 	 * Gets the state of the lens and calls the appropriate save method
 	 */
 	$scope.save = function() {
@@ -84,13 +80,11 @@ angular.module('lensesServerApp')
 
 	};
 
-
 	/**
 	 * Sends a PUT request to update the lens
 	 */
 	$scope.update = function(){	
 		this.lens.revision = this.lens.revision + 1;
-
 
 		$http.put('api/lenses/'+this.lens._id, this.lens).success(function(data) {
 			$location.path('/lens/'+ data._id + '/' + data.revision, false);
