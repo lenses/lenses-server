@@ -18,11 +18,15 @@ exports.show = function(req, res) {
     if(err) { return handleError(res, err); }
     if(!lens) { return res.send(404); }
 
+    // turn mongoose object to plain object so we can set editable property
+    var mylens = lens.toObject();
+
     // make lens savable
-    if(req.cookies.lenses === lens.cookieToken) {
-      lens.editable = true;
+    if(req.cookies.lenses === mylens.cookieToken) {
+      mylens.editable = true;
     }
-    return res.json(lens);
+    return res.json(mylens);
+
   });
 };
 
@@ -70,34 +74,59 @@ exports.create = function(req, res) {
 
 };
 
+/*
+
+ original update
+
++exports.update = function(req, res) {
++  if(req.body._id) { delete req.body._id; }
++  Lens.findById(req.params.id, function (err, lens) {
++    if (err) { return handleError(res, err); }
++    if(!lens) { return res.send(404); }
++    var updated = _.merge(lens, req.body);
++    updated.save(function (err) {
++      if (err) { return handleError(res, err); }
++      return res.json(200, lens);
++    });
++  });
++}
+ */
+
 // Updates an existing lens in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  if(req.body.__v || req.body.__v === 0) { delete req.body.__v; } // Version key should not be hardcoded and is updated interally. MongoDB will not allow it to be set manually, so remove it from data.
+  //saving object sometimes causes “VersionError: No matching document found.” error. below line fixes that!!
+  if(req.body.__v || req.body.__v === 0) { delete req.body.__v; } 
 
 
     Lens.findById(req.params.id, function (err, lens) {
       if (err) { return handleError(res, err); }
       if(!lens) { return res.send(404); }
       
-      var updated = _.merge(lens, req.body);
+      //original code had: var updated = _.merge(lens, req.body);
+      //changed to _extend as per  https://github.com/DaftMonk/generator-angular-fullstack/issues/310
+      var updated = _.extend(lens, req.body);
 
       // make sure updated has the structure passed by request
       if(req.body.structure) {
+
         updated.structure = req.body.structure;
       }
 
       //check if user is allowed to update the lens
       if(allowUpdate(req, lens)) {
 
-        updated.save(function (err) {  
-          if (err) { return handleError(res, err); }
-          return res.json(200, lens);
+        updated.save(function (err, savedLens) {  
+          if (err) { 
+            return handleError(res, err); 
+          }
+
+          return res.json(200, savedLens);
         });
 
       }
       else {
-        console.log('not alowed to login');
+        console.log('doesnt own the lens, not alowed to update');
         //TODO error handling
       }
 
@@ -117,13 +146,23 @@ exports.destroy = function(req, res) {
 };
 
 function handleError(res, err) {
+  console.log('!!!!!!!!!!! ERROR', err);
   return res.send(500, err);
 }
 
 function createLens(req, res) {
+    //needed for forking? otherwise mongoose rewrites?
+    if(req.body._id) { delete req.body._id; }
+
     Lens.create(req.body, function(err, mylens) {
       if(err) { return handleError(res, err); }
-      return res.json(201, mylens);
+      console.log('id', mylens.id)
+
+      // created lens always needs to be editable
+      var mylensClone = mylens.toObject();
+      mylensClone.editable = true;
+
+      return res.json(201, mylensClone);
     });
 }
 
