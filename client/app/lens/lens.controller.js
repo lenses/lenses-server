@@ -66,10 +66,21 @@ angular.module('lensesServerApp')
 		this.lens.author = lens.lensAuthor || '';
 		this.lens.finalResult = lens.getFinalResult() || {};
 
-		//this.lens._id = null;
-		this.cookieToken = null;
+		//fake fork animation
+		var forkbtn = document.querySelector('#forkbtn');
+		forkbtn.firstChild.data = 'forking....';
+		forkbtn.style.opacity = 0;
 
-		this.create();	
+		setTimeout(function() {
+
+			this.create();	
+			//just in case wee needed it back!
+			forkbtn.style.opacity = 1;
+
+		}.bind(this), 2000)
+
+
+
 
 	};
 

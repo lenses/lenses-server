@@ -1,7 +1,7 @@
 <div class="buttons">
-<button  ng-if="lens.editable" class="save btn" ng-click="save()">Save</button>
-<button  ng-if="!lens.editable" class="fork btn" ng-click="fork()">Fork</button>
-<a ng-if="lens.finalResult" href="/viewer/{{lens._id}}" class="btn" target="_blank"><button class="view"> View </button></a>
+<button  ng-if="lens.editable" class="lbtn" id="savebtn" ng-click="save()">Save</button>
+<button  ng-if="!lens.editable" class="lbtn" id="forkbtn" ng-click="fork()">Fork</button>
+<a ng-if="lens.finalResult" href="/viewer/{{lens._id}}" class="lbtn" target="_blank"><button class="view"> View </button></a>
 </div>
 
 <link ng-if="lens.type==='freeform'" rel="import" href="../bower_components/lenses-freeform/lenses-freeform.html" >
