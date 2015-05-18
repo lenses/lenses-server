@@ -73,7 +73,7 @@ angular.module('lensesServerApp')
 			//just in case wee needed it back!
 			forkbtn.style.opacity = 1;
 
-		}.bind(this), 2000)
+		}.bind(this), 2000);
 
 
 
