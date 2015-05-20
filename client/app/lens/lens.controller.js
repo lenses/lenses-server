@@ -47,6 +47,7 @@ angular.module('lensesServerApp')
 		this.lens.title = lens.lensTitle || '';
 		this.lens.author = lens.lensAuthor || '';
 		this.lens.finalResult = lens.getFinalResult() || {};
+		this.lens.theme = lens.theme || '';
 
 		if(this.lens && this.lens._id) {
 			this.update();
@@ -61,6 +62,7 @@ angular.module('lensesServerApp')
 		this.lens.title = lens.lensTitle || '';
 		this.lens.author = lens.lensAuthor || '';
 		this.lens.finalResult = lens.getFinalResult() || {};
+		this.lens.theme = lens.theme || '';
 
 		//fake fork animation
 		var forkbtn = document.querySelector('#forkbtn');

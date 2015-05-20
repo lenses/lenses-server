@@ -51,13 +51,16 @@
 
       if (element){
         var elementData = <%- JSON.stringify(elementData) %> ;
-        console.log(elementData);
+        var theme = '<%- theme %>';
+        window.CoreStyle.g.theme = theme ? Themes[theme] : window.CoreStyle.g.theme;
+        
         for (var attr in elementData){
           element[attr] = elementData[attr];
         }
 
         element.showOptions = false;
         element.animateOnInit = true;
+        
       }
     </script>
 

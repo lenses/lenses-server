@@ -10,7 +10,8 @@ exports.index = function(req, res) {
 	    if(!lens) { return res.send(404); }
 
       var elementName = lens.finalResult ? lens.finalResult.componentName : "",
-          elementDataObj = lens.finalResult ? lens.finalResult.componentState : {};
+          elementDataObj = lens.finalResult ? lens.finalResult.componentState : {},
+          theme = lens.theme; 
 
       //if component is not a viz, output json data
       if(elementName.indexOf('-viz-')<0) {
@@ -23,7 +24,8 @@ exports.index = function(req, res) {
         lens: lens,
         title: lens.title,
         elementName: elementName,
-        elementData: elementDataObj
+        elementData: elementDataObj,
+        theme: theme
       });
 
 	  });
