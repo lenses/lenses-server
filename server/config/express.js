@@ -33,6 +33,14 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(passport.initialize());
 
+  //CORS settings: allow course for GET requests.
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });  
+
   // Persist sessions with mongoStore
   // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
   app.use(session({
