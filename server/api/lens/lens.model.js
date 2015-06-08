@@ -6,13 +6,13 @@ var mongoose = require('mongoose'),
 
 
 // schema for input data pasted into lens
-var InputDataSchema = new Schema({
-	name: String,
-	keywords: [String],
+var ComponentDataSchema = new Schema({
+  componentId: String, // dom id of component
+  type: String, // input/output
 	data: Schema.Types.Mixed
 });
 
-module.exports = mongoose.model('InputData', InputDataSchema);
+module.exports = mongoose.model('ComponentData', ComponentDataSchema);
 
 var LensSchema = new Schema({
   title: String,
@@ -25,7 +25,7 @@ var LensSchema = new Schema({
   active: Boolean,
   revision: Number,
   finalResult: Object,
-  inputData: {type: Schema.Types.ObjectId, ref: 'InputData'}
+  componentData: {type: Schema.Types.ObjectId, ref: 'ComponentData'}
   
 });
 
