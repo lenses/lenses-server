@@ -16,11 +16,6 @@ angular.module('lensesServerApp')
         templateUrl: 'app/lens/lens.html',
         controller: 'LensCtrl'
       })
-      .when('/lens/:lensId/view', {
-        templateUrl: 'app/lens/lens-view.html',
-        controller: 'LensCtrl'
-      })
-
       .when('/lens/:lensId/:revision', {
         templateUrl: 'app/lens/lens.html',
         controller: 'LensCtrl'

@@ -17,6 +17,11 @@ module.exports = function(app) {
   var viewerController = require('./controllers/viewerController');
   app.get('/viewer/:id', viewerController.index);
 
+  var dataController = require('./controllers/dataController');
+  app.get('/data/:id', dataController.index);
+  app.get('/data/:id/:trackIndex', dataController.track);
+
+
 //  app.use('/viewer', require('./controllers/viewer'));
 
   app.use('/auth', require('./auth'));

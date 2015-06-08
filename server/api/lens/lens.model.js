@@ -25,9 +25,9 @@ var LensSchema = new Schema({
   active: Boolean,
   revision: Number,
   finalResult: Object,
-  inputData: {type: Schema.Types.ObjectId, ref: 'InputData'}
+  inputData: {type: Schema.Types.ObjectId, ref: 'InputData'},
+  outputData: Array
   
 });
 
 module.exports = mongoose.model('Lens', LensSchema);
-

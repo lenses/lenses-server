@@ -16,7 +16,7 @@ angular.module('lensesServerApp')
 	    	
 	    	//put structure into scope seperately to have more control over when it updates
 	    	$scope.lensStructure = data.structure;
-	    	console.log('lens', $scope.lens);
+
 		  	});
 	} else {
 			// Get lenses list
@@ -48,7 +48,9 @@ angular.module('lensesServerApp')
 		this.lens.author = lens.lensAuthor || '';
 		this.lens.finalResult = lens.getFinalResult() || {};
 		this.lens.theme = lens.theme || '';
-
+		this.lens.outputData = lens.output || [];
+		
+		
 		if(this.lens && this.lens._id) {
 			this.update();
 		} else {
@@ -63,10 +65,11 @@ angular.module('lensesServerApp')
 		this.lens.author = lens.lensAuthor || '';
 		this.lens.finalResult = lens.getFinalResult() || {};
 		this.lens.theme = lens.theme || '';
+		this.lens.outputData = lens.output || [];
 
 		//fake fork animation
 		var forkbtn = document.querySelector('#forkbtn');
-		forkbtn.firstChild.data = 'forking....';
+		forkbtn.firstChild.data = 'Forking...';
 		forkbtn.style.opacity = 0;
 
 		setTimeout(function() {
@@ -98,27 +101,23 @@ angular.module('lensesServerApp')
 	 */
 	$scope.create = function(){	
 		//var scope = this;
-		this.lens.active = true;
+		this.lens.active = true; 
 		this.lens.revisions = 0;
-		console.log('posting ', this.lens);
 		
 		$http.post('api/lenses/', this.lens).success(function(data) {
-			console.log('saved', data);
 			$scope.lens = data;
-			console.log('scope lens', $scope, $scope.lens);
 			$location.path('/lens/'+ data._id, false).search({});
 		});
 	};
 
 
 	/**
-	 * sets the height of the page when there is lenses freeform in the page.
+	 * Sets the height of the page when there is lenses freeform in the page.
 	 */
 	$scope.setHeights = function() {
 		if ($scope.lens.type === 'freeform'){
-			console.log('setheights');
 			var html = document.querySelector('html'),
-				body = document.querySelector('body');
+					body = document.querySelector('body');
 
 			html.style.width = '100%';
 			html.style.height = '100%';
@@ -127,7 +126,6 @@ angular.module('lensesServerApp')
 			body.style.height = '100%';
 		}
 	};
-
 
     
 }]);

@@ -16,9 +16,10 @@ exports.index = function(req, res) {
       //if component is not a viz, output json data
       if(elementName.indexOf('-viz-')<0) {
         //console.log(typeof elementDataObj, elementDataObj, elementDataObj.output);
+        
         var output = JSON.parse(elementDataObj).output || {};
         return res.json({lensData: output});
-      }    
+      }
          
       res.render('viewer.html', {
         lens: lens,

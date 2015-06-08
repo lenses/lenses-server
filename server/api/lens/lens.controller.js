@@ -40,6 +40,7 @@ exports.create = function(req, res) {
 
   }
   else {
+
     //make anonymous user the owner
     User.findOne({defaultUser: true}, function(err, user) {
 
@@ -56,7 +57,6 @@ exports.create = function(req, res) {
             token = buf.toString('hex');
             res.cookie('lenses', token, { expires: new Date(Date.now() + 30*24*60*60*100), httpOnly: true });
             req.body.cookieToken = token;
-
             createLens(req, res);
 
           });
