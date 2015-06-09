@@ -19,6 +19,11 @@ module.exports = function(app) {
 
 //  app.use('/viewer', require('./controllers/viewer'));
 
+
+  var proxyController = require('./controllers/proxyController');
+  app.use('/proxy/*', proxyController.index);
+
+
   app.use('/auth', require('./auth'));
   
   // All undefined asset or api routes should return a 404
@@ -26,10 +31,12 @@ module.exports = function(app) {
    .get(errors[404]);
 
 
+
   // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {
       console.log('other');
       res.sendfile(app.get('appPath') + '/index.html');
-    });
+  });
+
 };
