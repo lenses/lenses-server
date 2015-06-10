@@ -21,6 +21,9 @@ exports.show = function(req, res) {
     // turn mongoose object to plain object so we can set editable property
     var mylens = lens.toObject();
 
+    // copy component data into lens structure
+    mylens = copyComponentData(mylens);
+
     // make lens savable
     if(req.cookies.lenses === mylens.cookieToken) {
       mylens.editable = true;
@@ -98,7 +101,6 @@ exports.update = function(req, res) {
   //saving object sometimes causes “VersionError: No matching document found.” error. below line fixes that!!
   if(req.body.__v || req.body.__v === 0) { delete req.body.__v; } 
 
-
     Lens.findById(req.params.id, function (err, lens) {
       if (err) { return handleError(res, err); }
       if(!lens) { return res.send(404); }
@@ -113,10 +115,12 @@ exports.update = function(req, res) {
         updated.structure = req.body.structure;
       }
 
+      var modifiedLens = extractComponentData(updated);
+
       //check if user is allowed to update the lens
       if(allowUpdate(req, lens)) {
 
-        updated.save(function (err, savedLens) {  
+        modifiedLens.save(function (err, savedLens) {  
           if (err) { 
             return handleError(res, err); 
           }
@@ -154,7 +158,9 @@ function createLens(req, res) {
     //needed for forking? otherwise mongoose rewrites?
     if(req.body._id) { delete req.body._id; }
 
-    Lens.create(req.body, function(err, mylens) {
+    var modifiedLens = extractComponentData(req.body);
+
+    Lens.create(modifiedLens, function(err, mylens) {
       if(err) { return handleError(res, err); }
       console.log('id', mylens.id)
 
@@ -165,6 +171,82 @@ function createLens(req, res) {
       return res.json(201, mylensClone);
     });
 }
+
+function extractComponentData(lensObject) {
+  
+  var type = lensObject.type;
+
+  console.log(lensObject.structure, typeof lensObject.structure);
+
+  var structure = (typeof lensObject.structure==='string') ? JSON.parse(lensObject.structure) : lensObject.structure;
+
+
+  var componentData = lensObject.componentData || [];
+
+  if(type==='freeform') {
+    var elements = structure.elements;
+    console.log(elements);
+    elements = elements.map(function(el) {
+      if(el.output ) {
+        componentData.push({data: el.output, type: 'output', componentId: el.id})
+        delete el.output;
+      }
+      if(el.input ) {
+        componentData.push({data: el.input, type: 'input', componentId: el.id})
+        delete el.input;
+      }
+      return el;
+    });
+
+    structure.elements = elements;
+
+  } else if (type==='linear') {
+
+  }
+
+  lensObject.structure = structure;
+  lensObject.componentData = componentData;
+  console.log(JSON.stringify(lensObject));
+
+  return lensObject;
+  
+  //return lensObject;
+
+}
+
+function copyComponentData(lensObject) {
+
+  var componentData = lensObject.componentData;
+
+  console.log('before', lensObject);
+
+
+  componentData.forEach(function(item) {
+
+    var id = item.componentId;
+
+    //freeform
+    var element = lensObject.structure.elements.filter(function(el) {
+      return el.id === id;
+    })[0];
+
+    element[item.type] = item.data;
+    //console.log(JSON.stringify(element));
+  });
+    
+
+  lensObject.componentData = null;
+
+
+  console.log('after', lensObject);
+
+
+
+  return lensObject;
+
+}
+
+
 
 function allowUpdate(req, lens) {
 
