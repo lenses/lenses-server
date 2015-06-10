@@ -202,6 +202,8 @@ function extractComponentData(lensObject) {
 
   } else if (type==='linear') {
 
+    //TODO
+
   }
 
   lensObject.structure = structure;
@@ -218,20 +220,24 @@ function copyComponentData(lensObject) {
 
   var componentData = lensObject.componentData;
 
-  console.log('before', lensObject);
-
 
   componentData.forEach(function(item) {
 
     var id = item.componentId;
 
+    var element;
     //freeform
-    var element = lensObject.structure.elements.filter(function(el) {
-      return el.id === id;
-    })[0];
+    if(lensObject.type==='freeform') {
+      element = lensObject.structure.elements.filter(function(el) {
+        return el.id === id;
+      })[0];
+
+    }
+    else if (type==='linear') {
+      //TODO
+    }
 
     element[item.type] = item.data;
-    //console.log(JSON.stringify(element));
   });
     
 
