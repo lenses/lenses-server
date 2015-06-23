@@ -22,7 +22,7 @@ exports.show = function(req, res) {
     var mylens = lens.toObject();
 
     // copy component data into lens structure
-    mylens = copyComponentData(mylens);
+    mylens = restoreComponentData(mylens);
 
     // make lens savable
     if(req.cookies.lenses === mylens.cookieToken) {
@@ -216,7 +216,7 @@ function extractComponentData(lensObject) {
 
 }
 
-function copyComponentData(lensObject) {
+function restoreComponentData(lensObject) {
 
   var componentData = lensObject.componentData;
 
