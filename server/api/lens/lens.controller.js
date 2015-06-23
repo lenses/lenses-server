@@ -200,18 +200,19 @@ function extractComponentData(lensObject) {
 
     structure.elements = elements;
 
-  } else if (type==='linear') {
+  } 
+  else {
 
     var components = structure.nodes;
 
     components = components.map(function(el) {
       if(el.componentState.output ) {
         componentData.push({data: el.componentState.output, type: 'output', componentId: el.componentState.id})
-        delete el.output;
+        delete el.componentState.output;
       }
       if(el.componentState.input ) {
         componentData.push({data: el.componentState.input, type: 'input', componentId: el.componentState.id})
-        delete el.input;
+        delete el.componentState.input;
       }
       return el;
     });
@@ -248,7 +249,7 @@ function restoreComponentData(lensObject) {
       element[item.type] = item.data;
 
     }
-    else if (type==='linear') {
+    else {
 
       element = lensObject.structure.nodes.filter(function(el) {
         return el.componentState.id === id;
