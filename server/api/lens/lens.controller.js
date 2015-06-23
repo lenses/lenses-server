@@ -202,7 +202,21 @@ function extractComponentData(lensObject) {
 
   } else if (type==='linear') {
 
-    //TODO
+    var components = structure.nodes;
+
+    components = components.map(function(el) {
+      if(el.componentState.output ) {
+        componentData.push({data: el.componentState.output, type: 'output', componentId: el.componentState.id})
+        delete el.output;
+      }
+      if(el.componentState.input ) {
+        componentData.push({data: el.componentState.input, type: 'input', componentId: el.componentState.id})
+        delete el.input;
+      }
+      return el;
+    });
+
+    structure.components = components;
 
   }
 
@@ -231,13 +245,18 @@ function restoreComponentData(lensObject) {
       element = lensObject.structure.elements.filter(function(el) {
         return el.id === id;
       })[0];
+      element[item.type] = item.data;
 
     }
     else if (type==='linear') {
-      //TODO
+
+      element = lensObject.structure.nodes.filter(function(el) {
+        return el.componentState.id === id;
+      })[0];
+      element.componentState[item.type] = item.data;
+      
     }
 
-    element[item.type] = item.data;
   });
     
 
